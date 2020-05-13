@@ -15,10 +15,10 @@ from sklearn.model_selection import train_test_split
 from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
 
-IRIS_CSV_FILE = "UEHAugmented.csv"
+IRIS_CSV_FILE = "data/UEHAugmented.csv"
 LOCAL_ROOT = pathlib.Path(__file__).parent
 GITHUB_ROOT = (
-    "https://raw.githubusercontent.com/qerelt/tomyo-ai/master/data/" + "/"
+    "https://raw.githubusercontent.com/qerelt/tomyo-ai/master/"
 )
 
 
