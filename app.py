@@ -161,7 +161,7 @@ def read_data_csv() -> pd.DataFrame:
         pd.DataFrame -- A dataframe with the source data
     """
     # return pd.read_csv(LOCAL_ROOT / DATA_CSV_FILE)
-    return pd.read_csv(GITHUB_ROOT + DATA_CSV_FILE)
+    return pd.read_csv("data/UEHAugmented.csv")
 
 
 main()
