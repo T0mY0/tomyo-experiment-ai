@@ -107,7 +107,7 @@ def show_machine_learning_model(source_df: pd.DataFrame):
     Raises:
         NotImplementedError: Raised if a not supported model is selected
     """
-    st.header("Deep Learning models")
+    st.header("Model Exploration")
     features = source_df[
         ["A1", "A2", "B1", "B2", "C1", "C2", "TOEFL", "IELTS", "SAT"]
     ].values
