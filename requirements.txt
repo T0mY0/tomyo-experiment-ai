@@ -2,3 +2,5 @@ streamlit
 pandas
 plotly
 sklearn
+tensorflow==1.14
+keras==2.2.5
