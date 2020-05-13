@@ -1,5 +1,5 @@
 """
-App: TomYo AI: User English Level Prediction
+App: TomYo AI - User English Level Prediction
 Author: Gereltuya
 Credits: Noah Saunders, Marc Skov Madsen, Jason Brownlee
 Source Code/Article(s): Awesome Streamlit (https://raw.githubusercontent.com/MarcSkovMadsen/awesome-streamlit/master/gallery/iris_classification/iris.py), Machine Learning Mastery (https://machinelearningmastery.com/multi-class-classification-tutorial-keras-deep-learning-library/)
@@ -15,17 +15,15 @@ from sklearn.model_selection import train_test_split
 from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
 
-IRIS_CSV_FILE = "iris.csv"
-GALLERY_FOLDER = "iris_classification"
+IRIS_CSV_FILE = "UEHAugmented.csv"
 LOCAL_ROOT = pathlib.Path(__file__).parent
 GITHUB_ROOT = (
-    "https://raw.githubusercontent.com/MarcSkovMadsen/awesome-streamlit/"
-    "master/gallery/" + GALLERY_FOLDER + "/"
+    "https://raw.githubusercontent.com/qerelt/tomyo-ai/master/data/" + "/"
 )
 
 
 def main():
-    """## Main function of Iris Classifier App
+    """## Main function of TomYo AI - User English Level Prediction App
 
     Run this to run the app.
     """
