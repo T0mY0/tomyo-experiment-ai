@@ -110,10 +110,10 @@ print(uea)
 
 for u in uec:
     uea[u["userLevelByHuman"]].append(u)
-    
+
 for label in labels:
     print(label, len(uea[label]))
-    
+
 print(uea[4][0])
 
 
@@ -130,7 +130,7 @@ for label in labels:
         randomSign = randrange(-1,3,2)
         tmp[randomColumn] = abs(tmp[randomColumn] + randomSign*0.001)
         uea[label].append(tmp)
-        
+
 print(randomIndex, randomColumn, randomSign, tmp)
 
 for label in labels:
@@ -143,7 +143,7 @@ for label in labels:
 ueag = []
 for label in labels:
     ueag += uea[label]
-    
+
 print(len(ueag), ueag[-1])
 
 
@@ -243,4 +243,3 @@ predictions = loaded_model.predict_classes(X_test)
 # summarize the first n cases
 for i in range(50):
     print("predicted {0}, expected {1}, {2}, input {3}".format(predictions[i], Y_test[i], Y_test[i][predictions[i]] == 1.0, X_test[i].tolist()))
-
