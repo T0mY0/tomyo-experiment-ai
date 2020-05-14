@@ -17,12 +17,6 @@ from keras.models import model_from_json
 from keras.utils import np_utils
 
 
-DATA_CSV_FILE = "data/UEHAugmented.csv?token=AHDXJ7OOJOZSGEIIGUQ2Z4S6YU6EM"
-LOCAL_ROOT = pathlib.Path(__file__).parent
-GITHUB_ROOT = (
-    "https://raw.githubusercontent.com/qerelt/tomyo-ai/master/"
-)
-
 def main():
     """## Main function of TomYo AI - User English Level Prediction App
 
@@ -31,7 +25,7 @@ def main():
     st.title("TomYo AI - User English Level Classifier")
     st.header("Data Exploration")
 
-    source_df = read_data_csv()
+    source_df = read_augmented_data_csv()
     st.subheader("Source Data")
     if st.checkbox("Show Source Data"):
         st.write(source_df)
@@ -126,11 +120,13 @@ def show_machine_learning_model(source_df: pd.DataFrame):
         encoder.fit(labels)
         encoded_labels = encoder.transform(labels)
         onehot_labels = np_utils.to_categorical(encoded_labels)
-        x_train, x_test, y_train, y_test = train_test_split(features, onehot_labels, train_size=0.9, random_state=7)
-        y_test_v = [sum([y_test[j][i]*i for i in range(5)]) for j in range(len(y_test))]
+        x_train, x_test, y_train, y_test = train_test_split(
+            features, onehot_labels, train_size=0.9, random_state=7)
+        y_test_v = [sum([y_test[j][i] * i for i in range(5)])
+                    for j in range(len(y_test))]
 
-
-    lossFunctions = {"V1": "binary_crossentropy", "V2": "categorical_crossentropy"}
+    lossFunctions = {"V1": "binary_crossentropy",
+                     "V2": "categorical_crossentropy"}
     optimizers = {"V1": "rmsprop", "V2": "adam"}
     modelStructure = "model/model{0}.json".format(modelVersion)
     modelWeights = "model/model{0}.h5".format(modelVersion)
@@ -139,8 +135,9 @@ def show_machine_learning_model(source_df: pd.DataFrame):
     json_file.close()
     model = model_from_json(model_json)
     model.load_weights(modelWeights)
-    model.compile(loss=lossFunctions[modelVersion], optimizer=optimizers[modelVersion], metrics=['accuracy'])
-    acc = model.evaluate(x_test, y_test, verbose=0)[1]*100
+    model.compile(loss=lossFunctions[modelVersion],
+                  optimizer=optimizers[modelVersion], metrics=['accuracy'])
+    acc = model.evaluate(x_test, y_test, verbose=0)[1] * 100
     st.write("Accuracy: ", acc.round(2))
     pred_model = model.predict_classes(x_test)
     cm_model = confusion_matrix(y_test_v, pred_model)
@@ -148,13 +145,14 @@ def show_machine_learning_model(source_df: pd.DataFrame):
     predictions = model.predict_classes(x_test)
     predictions_dict = []
     for i in range(len(predictions)):
-        predictions_dict.append({"predicted": predictions[i], "expected": y_test_v[i], "isCorrect": predictions[i]==y_test_v[i], "input": x_test[i].tolist()})
+        predictions_dict.append({"input": x_test[i].tolist(
+        ), "predicted": predictions[i], "expected": y_test_v[i], "isCorrect": predictions[i] == y_test_v[i]})
     predictions_df = pd.DataFrame.from_dict(predictions_dict)
     st.write("Predictions on test data: ", predictions_df)
 
 
 @st.cache
-def read_data_csv() -> pd.DataFrame:
+def read_augmented_data_csv() -> pd.DataFrame:
     """## source data dataframe
 
     Returns:
