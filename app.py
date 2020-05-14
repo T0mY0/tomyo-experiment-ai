@@ -107,7 +107,7 @@ def show_machine_learning_model(source_df: pd.DataFrame):
     ].values
     labels = source_df["userLevelByHuman"].values
 
-    modelVersions = ["V1", "V2"]
+    modelVersions = ["V2", "V1"]
     modelVersion = st.selectbox("Which version?", modelVersions)
 
     if modelVersion == "V1":
@@ -145,8 +145,16 @@ def show_machine_learning_model(source_df: pd.DataFrame):
     predictions = model.predict_classes(x_test)
     predictions_dict = []
     for i in range(len(predictions)):
-        predictions_dict.append({"input": x_test[i].tolist(
-        ), "predicted": predictions[i], "expected": y_test_v[i], "isCorrect": predictions[i] == y_test_v[i]})
+        featureLabels = ["A1", "A2", "B1", "B2",
+                         "C1", "C2", "TOEFL", "IELTS", "SAT"]
+        labelsToLevels = {0: "A1", 1: "A2", 2: "B1", 3: "B2", 4: "C"}
+        predictions_elem = {}
+        for j in range(9):
+            predictions_elem[featureLabels[j]] = x_test[i].round(3).tolist()[j]
+        predictions_elem["predicted"] = labelsToLevels[predictions[i]]
+        predictions_elem["expected"] = labelsToLevels[y_test_v[i]]
+        predictions_elem["isCorrect"] = True if predictions[i] == y_test_v[i] else False
+        predictions_dict.append(predictions_elem)
     predictions_df = pd.DataFrame.from_dict(predictions_dict)
     st.write("Predictions on test data: ", predictions_df)
 
