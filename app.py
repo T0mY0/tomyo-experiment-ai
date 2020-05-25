@@ -8,14 +8,21 @@ LOGGER = get_logger(__name__)
 EXPERIMENTS = OrderedDict(
     [
         ("—", (experiments.intro, None)),
-        ("Explore English quiz data",(experiments.explore_en_data,None,),),
-        ("Explore trained English models",(experiments.explore_en_model,None,),),
+        ("0525: Test adaptive testing mock UX",
+         (experiments.test_at_mock_ux, None,),),
+        ("0521: Explore trained models in 4 languages",
+         (experiments.explore_language_models, None,),),
+        ("0514: Explore trained English models",
+         (experiments.explore_en_model, None,),),
+        ("0507: Explore English quiz data",
+         (experiments.explore_en_data, None,),),
     ]
 )
 
 
 def run():
-    experiment_name = st.sidebar.selectbox("Choose an experiment", list(EXPERIMENTS.keys()), 0)
+    experiment_name = st.sidebar.selectbox(
+        "Choose an experiment", list(EXPERIMENTS.keys()), 0)
     experiment = EXPERIMENTS[experiment_name][0]
 
     if experiment_name == "—":
